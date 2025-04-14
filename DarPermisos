@@ -1,0 +1,8 @@
+### Si se muestra el error `sh: 1: vitest: Permission denied`, es consecuencia de permisos incorrectos en el archivo ejecutable
+
+
+````
+# Para ejecutar los test con coverage
+# npx vitest run --coverage
+
+npx prettier --write .

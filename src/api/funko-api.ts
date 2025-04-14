@@ -1,5 +1,8 @@
 import express, { Request, Response} from 'express';
 import { UserFunkoManager } from '../storage/UserFunkoManager.js'
+import { Funko } from '../models/Funko.js';
+import { FunkoType } from '../models/FunkoType.js';
+import { FunkoGenre } from '../models/FunkoGenre.js';
 
 const app = express();
 const port = 3000;

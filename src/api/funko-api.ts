@@ -80,9 +80,46 @@ app.post('/funko', async (req: Request, res: Response) => {
         return res.status(400).json({
           success: false,
           message: '❌ Faltan campos obligatorios en la petición.',
-    });
+        });
+    };
 
-    
+    try {
+        const manager = new UserFunkoManager(user);
+        await manager.load();
+
+        const funko = new Funko(
+            id,
+            name,
+            description,
+            type as FunkoType,
+            genre as FunkoGenre,
+            franchise,
+            number,
+            exclusive,
+            specialFeatures,
+            marketValue,
+        );
+
+        const success = await manager.add(funko);
+
+        if (success) {
+            return res.status(201).json({
+                success: true,
+                message: `✅ Funko con ID ${id} añadido para el usuario ${user}.`,
+            });
+        } else {
+            return res.status(409).json({
+                success: false,
+                message: `❌ Ya existe un Funko con ID ${id} para el usuario ${user}.`,
+            });
+        }
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: `❌ Error interno del servidor: ${(error as Error).message}`,
+        });
+    }
+
 });
 
 app.listen(port, () => {

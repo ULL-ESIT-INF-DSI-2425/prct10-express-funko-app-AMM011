@@ -74,7 +74,16 @@ app.post('/funko', async (req: Request, res: Response) => {
         specialFeatures,
         marketValue,
     } = req.body;
-})
+
+    // Realizamos la comprobación de que los valores se han incluido todos 
+    if (!user || id === undefined || !name || !description || !type || !genre || !franchise || number === undefined || specialFeatures === undefined || marketValue === undefined) {
+        return res.status(400).json({
+          success: false,
+          message: '❌ Faltan campos obligatorios en la petición.',
+    });
+
+    
+});
 
 app.listen(port, () => {
     console.log(`🟢 Servidor Express escuchando en http://localhost:${port}`);

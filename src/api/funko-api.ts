@@ -60,6 +60,22 @@ app.get('/funkos', async (req: Request, res: Response) => {
     });
 });
 
+app.post('/funko', async (req: Request, res: Response) => {
+    const {
+        user,
+        id,
+        name,
+        description,
+        type,
+        genre,
+        franchise,
+        number,
+        exclusive,
+        specialFeatures,
+        marketValue,
+    } = req.body;
+})
+
 app.listen(port, () => {
     console.log(`🟢 Servidor Express escuchando en http://localhost:${port}`);
 });

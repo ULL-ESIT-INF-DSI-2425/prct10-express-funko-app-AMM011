@@ -179,8 +179,42 @@ app.patch('/funkos', async (req: Request, res: Response) => {
         message: `❌ Error interno del servidor: ${(error as Error).message}`,
       });
     }
-  });
-  
+});
+
+app.delete('/funkos', async (req: Request, res: Response) => {
+  const username = req.query.user as string;
+  const id = req.query.id !== undefined ? Number(req.query.id) : undefined;
+
+  if (!username || id === undefined || isNaN(id)) {
+    return res.status(400).json({
+      success: false,
+      message: '❌ Parámetros "user" e "id" requeridos y válidos en la query.',
+    });
+  }
+
+  try {
+    const manager = new UserFunkoManager(username);
+    await manager.load();
+
+    const deleted = await manager.remove(id);
+    if (deleted) {
+      return res.status(200).json({
+        success: true,
+        message: `🗑️ Funko con ID ${id} eliminado correctamente para ${username}.`,
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: `❌ No se encontró el Funko con ID ${id} para el usuario ${username}.`,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: `❌ Error interno del servidor: ${(error as Error).message}`,
+    });
+  }
+})
 
 app.listen(port, () => {
     console.log(`🟢 Servidor Express escuchando en http://localhost:${port}`);

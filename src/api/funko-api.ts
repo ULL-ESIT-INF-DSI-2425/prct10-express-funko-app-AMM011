@@ -3,6 +3,7 @@ import { UserFunkoManager } from '../storage/UserFunkoManager.js'
 import { Funko } from '../models/Funko.js';
 import { FunkoType } from '../models/FunkoType.js';
 import { FunkoGenre } from '../models/FunkoGenre.js';
+import { features } from 'process';
 
 const app = express();
 const port = 3000;
@@ -119,6 +120,82 @@ app.post('/funkos', async (req: Request, res: Response) => {
             message: `❌ Error interno del servidor: ${(error as Error).message}`,
         });
     }
+});
+
+app.patch('/funkos', async (req: Request, res: Response) => {
+    const {
+        user,
+        id,
+        name,
+        description,
+        type,
+        genre,
+        franchise,
+        number,
+        exclusive,
+        specialFeatures,
+        marketValue,
+    } = req.body;
+
+    // Realizamos la comprobación de que los valores se han incluido todos 
+    if (!user || id === undefined || !name || !description || !type || !genre || !franchise || number === undefined || specialFeatures === undefined || marketValue === undefined) {
+        return res.status(400).json({
+            success: false,
+            message: '❌ Faltan campos obligatorios en la petición.',
+        });
+    };
+
+    const manager = new UserFunkoManager(user);
+    await manager.load();
+
+    const funko = new Funko(
+        id,
+        name,
+        description,
+        type as FunkoType,
+        genre as FunkoGenre,
+        franchise,
+        number,
+        exclusive,
+        specialFeatures,
+        marketValue
+    );
+
+    try {
+        const manager = new UserFunkoManager(user);
+        await manager.load();
+    
+        const funko = new Funko(
+          id,
+          name,
+          description,
+          type as FunkoType,
+          genre as FunkoGenre,
+          franchise,
+          number,
+          exclusive ?? false,
+          specialFeatures,
+          marketValue
+        );
+    
+        const updated = await manager.update(funko);
+        if (updated) {
+          return res.status(200).json({
+            success: true,
+            message: `✅ Funko con ID ${id} actualizado correctamente para ${user}.`,
+          });
+        } else {
+          return res.status(404).json({
+            success: false,
+            message: `❌ No se encontró el Funko con ID ${id} para el usuario ${user}.`,
+          });
+        }
+      } catch (error) {
+        return res.status(500).json({
+          success: false,
+          message: `❌ Error interno del servidor: ${(error as Error).message}`,
+        });
+    }    
 });
 
 app.listen(port, () => {

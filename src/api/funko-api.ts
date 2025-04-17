@@ -60,7 +60,7 @@ app.get('/funkos', async (req: Request, res: Response) => {
     });
 });
 
-app.post('/funko', async (req: Request, res: Response) => {
+app.post('/funkos', async (req: Request, res: Response) => {
     const {
         user,
         id,

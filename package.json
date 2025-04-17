@@ -5,8 +5,10 @@
   "description": "[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/FTPDI46d) [![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=18315838)",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
-    "doc": "npx typedoc --entryPoints src/ejercicio-1/**/*.ts src/ejercicio-2/**/*.ts src/ejercicio-3/**/*.ts src/ejercicio-4/**/*.ts src/ejercicio-5/**/*.ts src/ejercicio-6/**/*.ts --out docs",
+    "build": "tsc",
+    "start": "node dist/api/funko-api.js",
+    "dev": "tsc-watch --onSuccess \"node dist/api/funko-api.js\"",
+    "doc": "npx typedoc --entryPoints src/api/**/*.ts --out docs",
     "test": "vitest run",
     "coverage": "vitest run --coverage --coverage.include \"src/**/*\"",
     "sonar": "sonar-scanner"
@@ -33,6 +35,7 @@
     "eslint-config-prettier": "^10.0.1",
     "globals": "^16.0.0",
     "prettier": "^3.5.1",
+    "supertest": "^7.1.0",
     "tsc-watch": "^6.2.1",
     "typedoc": "^0.27.8",
     "typescript-eslint": "^8.24.1",

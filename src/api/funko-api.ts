@@ -119,7 +119,6 @@ app.post('/funko', async (req: Request, res: Response) => {
             message: `❌ Error interno del servidor: ${(error as Error).message}`,
         });
     }
-
 });
 
 app.listen(port, () => {

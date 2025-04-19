@@ -1,0 +1,117 @@
+# 🚀 Ejecución de Scripts
+
+### ▶️ Compilar el proyecto en `dist/`
+```bash
+npm run build
+```
+
+### ▶️ Iniciar el servidor Express desde `dist/`
+```bash
+npm start
+```
+
+### ▶️ Desarrollo en vivo con recompilación automática
+```bash
+npm run dev
+```
+
+---
+
+# 🧪 Datos Base para las Pruebas
+
+Utilizaremos el siguiente Funko como base para los ejemplos:
+
+```json
+{
+  "user": "postman-test",
+  "id": 123,
+  "name": "Spider-Man 2099",
+  "description": "Funko futurista de Spider-Man",
+  "type": "Pop!",
+  "genre": "Películas y TV",
+  "franchise": "Spider-Man",
+  "number": 2099,
+  "exclusive": true,
+  "specialFeatures": "Brilla en la oscuridad",
+  "marketValue": 45
+}
+```
+
+---
+
+# 📬 Endpoints y Pruebas
+
+### ✅ 1. Añadir un Funko  
+**POST** `/funkos`  
+📍 `http://localhost:3000/funkos`
+
+**Body (raw → JSON):**
+```json
+{
+  "user": "postman-test",
+  "id": 123,
+  "name": "Spider-Man 2099",
+  "description": "Funko futurista de Spider-Man",
+  "type": "Pop!",
+  "genre": "Películas y TV",
+  "franchise": "Spider-Man",
+  "number": 2099,
+  "exclusive": true,
+  "specialFeatures": "Brilla en la oscuridad",
+  "marketValue": 45
+}
+```
+
+---
+
+### ✅ 2. Listar todos los Funkos del usuario  
+**GET** `/funkos`  
+📍 `http://localhost:3000/funkos?user=postman-test`
+
+---
+
+### ✅ 3. Obtener un Funko por ID  
+**GET** `/funkos?id=123`  
+📍 `http://localhost:3000/funkos?user=postman-test&id=123`
+
+---
+
+### ✅ 4. Modificar un Funko existente  
+**PATCH** `/funkos`  
+📍 `http://localhost:3000/funkos`
+
+**Body (raw → JSON):**
+```json
+{
+  "user": "postman-test",
+  "id": 123,
+  "name": "Spider-Man 2099 (Edición especial)",
+  "description": "Versión mejorada con detalles metálicos",
+  "type": "Pop!",
+  "genre": "Películas y TV",
+  "franchise": "Spider-Man",
+  "number": 2099,
+  "exclusive": false,
+  "specialFeatures": "Detalles metálicos",
+  "marketValue": 55
+}
+```
+
+---
+
+### ✅ 5. Eliminar un Funko por ID  
+**DELETE** `/funkos`  
+📍 `http://localhost:3000/funkos?user=postman-test&id=123`
+
+---
+
+# ⚠️ Casos de Error Comunes
+
+### ❌ Falta el campo `user` en una petición GET  
+📍 `http://localhost:3000/funkos`
+
+---
+
+### ❌ ID inválido (no numérico) en GET o DELETE  
+📍 `http://localhost:3000/funkos?user=postman-test&id=abc`
+

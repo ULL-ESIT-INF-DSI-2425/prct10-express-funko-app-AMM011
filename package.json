@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/api/funko-api.js",
+    "start": "node dist/pe102/server.js",
     "dev": "tsc-watch --onSuccess \"node dist/api/funko-api.js\"",
     "doc": "npx typedoc --entryPoints src/api/**/*.ts --out docs",
     "test": "vitest run",
